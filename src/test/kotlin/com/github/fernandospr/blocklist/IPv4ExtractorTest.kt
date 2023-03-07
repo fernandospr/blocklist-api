@@ -5,13 +5,13 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
-class Ipv4ExtractorTest {
+class IPv4ExtractorTest {
 
-  private lateinit var ipExtractor: Ipv4Extractor
+  private lateinit var ipExtractor: IPv4Extractor
 
   @BeforeEach
   fun setup() {
-    ipExtractor = Ipv4Extractor()
+    ipExtractor = IPv4Extractor()
   }
 
   @Test

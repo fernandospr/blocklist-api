@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service
 @Service
 class BlocklistService(
   @Autowired private val client: IPSumClient,
-  @Autowired private val ipExtractor: Ipv4Extractor
+  @Autowired private val ipExtractor: IPv4Extractor
 ) {
 
   @Cacheable(value = ["blocklist"])

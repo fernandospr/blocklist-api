@@ -3,7 +3,7 @@ package com.github.fernandospr.blocklist
 import org.springframework.stereotype.Component
 
 @Component
-class Ipv4Extractor {
+class IPv4Extractor {
 
   fun fromString(str: String): Collection<String> {
     val matchResults = IP_ADDRESS_REGEX.toRegex().findAll(str)
