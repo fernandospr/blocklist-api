@@ -20,7 +20,7 @@ class IPv4ExtractorTest {
 
     val result = ipExtractor.fromString(str)
 
-    assertEquals(listOf("200.1.1.1"), result)
+    assertEquals(setOf("200.1.1.1"), result)
   }
 
   @Test
@@ -44,7 +44,7 @@ class IPv4ExtractorTest {
 
     val result = ipExtractor.fromString(str)
 
-    assertEquals(listOf("200.1.1.1"), result)
+    assertEquals(setOf("200.1.1.1"), result)
   }
 
   @Test
@@ -59,15 +59,16 @@ class IPv4ExtractorTest {
 
     val result = ipExtractor.fromString(str)
 
-    assertEquals(listOf("200.1.1.1", "68.9.1.2"), result)
+    assertEquals(setOf("200.1.1.1", "68.9.1.2"), result)
   }
 
   @Test
   fun `Extracting from a multi-line string (carriage return and newline) that contains valid ips should return a list of those valid ips`() {
-    val str = "# This is a comment\r\n200.1.1.1\r\n# Another comment\r\n68.9.1.2\r\n68.9.Hello.world"
+    val str =
+      "# This is a comment\r\n200.1.1.1\r\n# Another comment\r\n68.9.1.2\r\n68.9.Hello.world"
 
     val result = ipExtractor.fromString(str)
 
-    assertEquals(listOf("200.1.1.1", "68.9.1.2"), result)
+    assertEquals(setOf("200.1.1.1", "68.9.1.2"), result)
   }
 }
