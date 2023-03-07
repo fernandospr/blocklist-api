@@ -7,7 +7,7 @@ class IPv4Extractor {
 
   fun fromString(str: String): Collection<String> {
     val matchResults = IP_ADDRESS_REGEX.toRegex().findAll(str)
-    return matchResults.toList().map { it.value }
+    return matchResults.toList().map { it.value }.toHashSet()
   }
 
   companion object {
