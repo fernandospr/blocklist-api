@@ -13,8 +13,8 @@ class BlocklistService(
 
   @Cacheable(value = ["blocklist"])
   fun getIpBlocklist(): Collection<String> {
-    val blocklistStr = client.getIpBlocklist()
-    return ipExtractor.fromString(blocklistStr)
+    // Throw if there's no cached blocklist
+    throw UnknownBlocklistException()
   }
 
   @CachePut(value = ["blocklist"])
