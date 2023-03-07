@@ -24,7 +24,7 @@ class BlocklistRefresher(
     refreshBlocklistCache()
   }
 
-  @Scheduled(cron = BLOCKLIST_REFRESH_CRON_DEFAULT)
+  @Scheduled(cron = "\${blocklist.refresher.cron:$BLOCKLIST_REFRESH_CRON_DEFAULT}")
   fun scheduleRefresh() = refreshBlocklistCache()
 
   private fun refreshBlocklistCache() {
