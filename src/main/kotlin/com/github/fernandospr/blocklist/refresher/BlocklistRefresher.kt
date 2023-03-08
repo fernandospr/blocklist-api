@@ -1,9 +1,12 @@
 package com.github.fernandospr.blocklist.refresher
 
+import com.github.fernandospr.blocklist.BLOCKLIST_NODE_TYPE_CLUSTERREFRESHER
+import com.github.fernandospr.blocklist.BLOCKLIST_NODE_TYPE_STANDALONE
 import com.github.fernandospr.blocklist.service.CacheUpdaterBlocklistService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression
 import org.springframework.boot.context.event.ApplicationReadyEvent
 import org.springframework.context.event.EventListener
 import org.springframework.scheduling.annotation.Scheduled
@@ -15,6 +18,10 @@ import org.springframework.stereotype.Component
 const val BLOCKLIST_REFRESHER_CRON_DEFAULT = "0 0 0 * * *"
 
 @Component
+@ConditionalOnExpression(
+  "'\${blocklist.nodeType:$BLOCKLIST_NODE_TYPE_STANDALONE}'.equals('$BLOCKLIST_NODE_TYPE_STANDALONE') or " +
+      "'\${blocklist.nodeType:$BLOCKLIST_NODE_TYPE_STANDALONE}'.equals('$BLOCKLIST_NODE_TYPE_CLUSTERREFRESHER')"
+)
 class BlocklistRefresher(
   @Autowired private val service: CacheUpdaterBlocklistService,
   private val logger: Logger = LoggerFactory.getLogger(BlocklistRefresher::class.java)
