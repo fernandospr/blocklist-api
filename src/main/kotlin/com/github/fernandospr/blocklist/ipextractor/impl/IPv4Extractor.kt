@@ -1,11 +1,12 @@
-package com.github.fernandospr.blocklist.ipextractor
+package com.github.fernandospr.blocklist.ipextractor.impl
 
+import com.github.fernandospr.blocklist.ipextractor.IpExtractor
 import org.springframework.stereotype.Component
 
 @Component
-class IPv4Extractor {
+class IPv4Extractor : IpExtractor {
 
-  fun fromString(str: String): Collection<String> {
+  override fun fromString(str: String): Collection<String> {
     val matchResults = IP_ADDRESS_REGEX.toRegex().findAll(str)
     return matchResults.toList().map { it.value }.toHashSet()
   }

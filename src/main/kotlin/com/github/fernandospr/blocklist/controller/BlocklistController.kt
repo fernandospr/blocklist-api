@@ -1,7 +1,7 @@
 package com.github.fernandospr.blocklist.controller
 
-import com.github.fernandospr.blocklist.service.BlocklistService
-import com.github.fernandospr.blocklist.ipextractor.IPv4Extractor.Companion.IP_ADDRESS_REGEX
+import com.github.fernandospr.blocklist.ipextractor.impl.IPv4Extractor.Companion.IP_ADDRESS_REGEX
+import com.github.fernandospr.blocklist.service.CachedBlocklistService
 import jakarta.validation.constraints.Pattern
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.validation.annotation.Validated
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/v1")
 @Validated
 class BlocklistController(
-  @Autowired private val service: BlocklistService
+  @Autowired private val service: CachedBlocklistService
 ) {
 
   @GetMapping("/ips/{ip}")
@@ -23,6 +23,6 @@ class BlocklistController(
     @PathVariable("ip")
     ip: String
   ): String {
-    return service.getIpBlocklist().contains(ip).toString()
+    return service.getCachedIpBlocklist().contains(ip).toString()
   }
 }

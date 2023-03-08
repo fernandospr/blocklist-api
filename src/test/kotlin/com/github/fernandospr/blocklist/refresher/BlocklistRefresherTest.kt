@@ -1,6 +1,7 @@
 package com.github.fernandospr.blocklist.refresher
 
-import com.github.fernandospr.blocklist.service.BlocklistService
+import com.github.fernandospr.blocklist.service.CacheUpdaterBlocklistService
+import com.github.fernandospr.blocklist.service.impl.BlocklistService
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito
@@ -8,7 +9,7 @@ import org.mockito.Mockito
 class BlocklistRefresherTest {
 
   private lateinit var refresher: BlocklistRefresher
-  private lateinit var serviceMock: BlocklistService
+  private lateinit var serviceMock: CacheUpdaterBlocklistService
 
   @BeforeEach
   fun setup() {

@@ -1,5 +1,6 @@
-package com.github.fernandospr.blocklist.client
+package com.github.fernandospr.blocklist.client.impl
 
+import com.github.fernandospr.blocklist.client.RemoteBlocklistClient
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.retry.annotation.Backoff
 import org.springframework.retry.annotation.Retryable
@@ -24,7 +25,7 @@ const val BLOCKLIST_REST_CLIENT_RETRY_MULTIPLIER_DEFAULT = 2.0
 @Component
 class IPSumClient(
   @Autowired private val restTemplate: RestTemplate
-) {
+): RemoteBlocklistClient {
 
   @Retryable(
     maxAttemptsExpression = "#{\${blocklist.rest.client.retry.maxAttempts:$BLOCKLIST_REST_CLIENT_RETRY_MAXATTEMPTS_DEFAULT}}",
@@ -33,7 +34,7 @@ class IPSumClient(
       multiplierExpression = "#{\${blocklist.rest.client.retry.backoff.multiplier:$BLOCKLIST_REST_CLIENT_RETRY_MULTIPLIER_DEFAULT}}"
     )
   )
-  fun getIpBlocklist(): String {
+  override fun getIpBlocklist(): String {
     val result = restTemplate.getForEntity(url, String::class.java)
     return result.body.orEmpty()
   }

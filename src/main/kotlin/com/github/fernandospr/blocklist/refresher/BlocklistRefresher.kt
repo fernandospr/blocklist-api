@@ -1,6 +1,6 @@
 package com.github.fernandospr.blocklist.refresher
 
-import com.github.fernandospr.blocklist.service.BlocklistService
+import com.github.fernandospr.blocklist.service.CacheUpdaterBlocklistService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -16,7 +16,7 @@ const val BLOCKLIST_REFRESHER_CRON_DEFAULT = "0 0 0 * * *"
 
 @Component
 class BlocklistRefresher(
-  @Autowired private val service: BlocklistService,
+  @Autowired private val service: CacheUpdaterBlocklistService,
   private val logger: Logger = LoggerFactory.getLogger(BlocklistRefresher::class.java)
 ) {
 

@@ -1,7 +1,7 @@
-package com.github.fernandospr.blocklist.service
+package com.github.fernandospr.blocklist.service.impl
 
-import com.github.fernandospr.blocklist.client.IPSumClient
-import com.github.fernandospr.blocklist.ipextractor.IPv4Extractor
+import com.github.fernandospr.blocklist.client.RemoteBlocklistClient
+import com.github.fernandospr.blocklist.ipextractor.IpExtractor
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito
@@ -9,13 +9,13 @@ import org.mockito.Mockito
 class BlocklistServiceTest {
 
   private lateinit var service: BlocklistService
-  private lateinit var clientMock: IPSumClient
-  private lateinit var ipExtractorMock: IPv4Extractor
+  private lateinit var clientMock: RemoteBlocklistClient
+  private lateinit var ipExtractorMock: IpExtractor
 
   @BeforeEach
   fun setup() {
-    clientMock = Mockito.mock(IPSumClient::class.java)
-    ipExtractorMock = Mockito.mock(IPv4Extractor::class.java)
+    clientMock = Mockito.mock(RemoteBlocklistClient::class.java)
+    ipExtractorMock = Mockito.mock(IpExtractor::class.java)
     val blocklistStr = blocklist.joinToString("\n")
     Mockito.`when`(clientMock.getIpBlocklist()).thenReturn(blocklistStr)
     Mockito.`when`(ipExtractorMock.fromString(blocklistStr)).thenReturn(blocklist)

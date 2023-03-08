@@ -2,11 +2,8 @@ package com.github.fernandospr.blocklist.config
 
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.web.client.RestTemplateBuilder
-import org.springframework.cache.annotation.EnableCaching
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.retry.annotation.EnableRetry
-import org.springframework.scheduling.annotation.EnableScheduling
 import java.time.Duration
 
 /**
@@ -19,11 +16,8 @@ const val BLOCKLIST_REST_CLIENT_CONNECTIMEOUT_DEFAULT = 5000
  */
 const val BLOCKLIST_REST_CLIENT_READTIMEOUT_DEFAULT = 5000
 
-@EnableCaching
-@EnableScheduling
-@EnableRetry
 @Configuration
-class BlocklistConfiguration(
+class RestTemplateConfiguration(
   @Value("\${blocklist.rest.client.connectTimeout:$BLOCKLIST_REST_CLIENT_CONNECTIMEOUT_DEFAULT}")
   private val restClientConnectTimeout: Long,
   @Value("\${blocklist.rest.client.readTimeout:$BLOCKLIST_REST_CLIENT_READTIMEOUT_DEFAULT}")
@@ -35,4 +29,3 @@ class BlocklistConfiguration(
     .setReadTimeout(Duration.ofMillis(restClientReadTimeout))
     .build()
 }
-
