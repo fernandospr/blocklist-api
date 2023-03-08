@@ -116,6 +116,19 @@ Note: If the node receives a GET request to `/v1/ips/{IPv4 address}` while this 
 * Having N Standalone nodes would mean there will be N requests to IPSum periodically, instead, it's possible to configure one node as Cluster-Refresher and the rest as Cluster-Member. Only the Cluster-Refresher will retrieve the blocklist from IPSum, cache it and share it to the rest of the nodes.
   * If the Cluster-Refresher is down, the rest of the Cluster-Member nodes will continue working with their blocklist cache, however, they won't get updates until a Cluster-Refresher is up again.
 
+* To quickly see the Cluster-Refresher/Cluster-Member nodes in action you can run some nodes in a single computer like this and perform GET requests:
+```
+./gradlew bootRun --args='--server.port=8080 --blocklist.nodeType=cluster-refresher'
+./gradlew bootRun --args='--server.port=8081 --blocklist.nodeType=cluster-member'
+./gradlew bootRun --args='--server.port=8082 --blocklist.nodeType=cluster-member'
+./gradlew bootRun --args='--server.port=8083 --blocklist.nodeType=cluster-member'
+
+curl http://localhost:8080/v1/ips/{IPv4 address}
+curl http://localhost:8081/v1/ips/{IPv4 address}
+curl http://localhost:8082/v1/ips/{IPv4 address}
+curl http://localhost:8083/v1/ips/{IPv4 address}
+```
+
 ## Responsibilities
 These are the main classes and a brief summary of what they do, you can also review the tests in the `src/test` folder.
 
