@@ -1,4 +1,4 @@
-package com.github.fernandospr.blocklist
+package com.github.fernandospr.blocklist.client
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.retry.annotation.Backoff

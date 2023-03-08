@@ -1,5 +1,6 @@
-package com.github.fernandospr.blocklist
+package com.github.fernandospr.blocklist.controller
 
+import com.github.fernandospr.blocklist.service.BlocklistService
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach

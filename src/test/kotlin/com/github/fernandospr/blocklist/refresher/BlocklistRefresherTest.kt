@@ -1,5 +1,6 @@
-package com.github.fernandospr.blocklist
+package com.github.fernandospr.blocklist.refresher
 
+import com.github.fernandospr.blocklist.service.BlocklistService
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito

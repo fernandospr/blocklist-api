@@ -1,9 +1,10 @@
-package com.github.fernandospr.blocklist
+package com.github.fernandospr.blocklist.service
 
-import com.github.fernandospr.blocklist.BlocklistServiceCacheIntegrationTest.TestConfig.Companion.CACHE_NAME
-import com.github.fernandospr.blocklist.BlocklistServiceCacheIntegrationTest.TestConfig.Companion.blocklist
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertThrows
+import com.github.fernandospr.blocklist.client.IPSumClient
+import com.github.fernandospr.blocklist.ipextractor.IPv4Extractor
+import com.github.fernandospr.blocklist.service.BlocklistServiceCacheIntegrationTest.TestConfig.Companion.CACHE_NAME
+import com.github.fernandospr.blocklist.service.BlocklistServiceCacheIntegrationTest.TestConfig.Companion.blocklist
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -57,14 +58,14 @@ class BlocklistServiceCacheIntegrationTest {
 
   @Test
   fun `Getting IP blocklist without cache should throw exception`() {
-    assertThrows(UnknownBlocklistException::class.java) { service.getIpBlocklist() }
+    Assertions.assertThrows(UnknownBlocklistException::class.java) { service.getIpBlocklist() }
   }
 
   @Test
   fun `Getting IP blocklist and updating cache should update cache`() {
     service.getIpBlocklistAndUpdateCache()
 
-    assertEquals(blocklist, cache.getValue(CACHE_NAME))
+    Assertions.assertEquals(blocklist, cache.getValue(CACHE_NAME))
   }
 
   @Test
@@ -73,9 +74,9 @@ class BlocklistServiceCacheIntegrationTest {
 
     service.getIpBlocklist()
 
-    assertEquals(blocklist, cache.getValue(CACHE_NAME))
+    Assertions.assertEquals(blocklist, cache.getValue(CACHE_NAME))
   }
 
-}
+  private fun CacheManager.getValue(cacheName: String) = this[cacheName]?.get(SimpleKey.EMPTY)?.get()
 
-private fun CacheManager.getValue(cacheName: String) = this[cacheName]?.get(SimpleKey.EMPTY)?.get()
+}

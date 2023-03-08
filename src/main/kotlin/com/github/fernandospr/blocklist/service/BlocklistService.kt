@@ -1,5 +1,7 @@
-package com.github.fernandospr.blocklist
+package com.github.fernandospr.blocklist.service
 
+import com.github.fernandospr.blocklist.ipextractor.IPv4Extractor
+import com.github.fernandospr.blocklist.client.IPSumClient
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.cache.annotation.CachePut
 import org.springframework.cache.annotation.Cacheable

@@ -1,6 +1,7 @@
-package com.github.fernandospr.blocklist
+package com.github.fernandospr.blocklist.controller
 
-import com.github.fernandospr.blocklist.IPv4Extractor.Companion.IP_ADDRESS_REGEX
+import com.github.fernandospr.blocklist.service.BlocklistService
+import com.github.fernandospr.blocklist.ipextractor.IPv4Extractor.Companion.IP_ADDRESS_REGEX
 import jakarta.validation.constraints.Pattern
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.validation.annotation.Validated

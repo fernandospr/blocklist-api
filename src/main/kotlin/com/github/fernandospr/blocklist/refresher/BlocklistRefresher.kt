@@ -1,5 +1,6 @@
-package com.github.fernandospr.blocklist
+package com.github.fernandospr.blocklist.refresher
 
+import com.github.fernandospr.blocklist.service.BlocklistService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Component
 /**
  * Refresh at 00:00:00 everyday by default.
  */
-const val BLOCKLIST_REFRESH_CRON_DEFAULT = "0 0 0 * * *"
+const val BLOCKLIST_REFRESHER_CRON_DEFAULT = "0 0 0 * * *"
 
 @Component
 class BlocklistRefresher(
@@ -24,7 +25,7 @@ class BlocklistRefresher(
     refreshBlocklistCache()
   }
 
-  @Scheduled(cron = "\${blocklist.refresher.cron:$BLOCKLIST_REFRESH_CRON_DEFAULT}")
+  @Scheduled(cron = "\${blocklist.refresher.cron:$BLOCKLIST_REFRESHER_CRON_DEFAULT}")
   fun scheduleRefresh() = refreshBlocklistCache()
 
   private fun refreshBlocklistCache() {

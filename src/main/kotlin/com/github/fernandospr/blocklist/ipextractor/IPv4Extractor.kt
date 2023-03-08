@@ -1,4 +1,4 @@
-package com.github.fernandospr.blocklist
+package com.github.fernandospr.blocklist.ipextractor
 
 import org.springframework.stereotype.Component
 

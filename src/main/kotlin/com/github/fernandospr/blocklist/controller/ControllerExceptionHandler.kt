@@ -1,4 +1,4 @@
-package com.github.fernandospr.blocklist
+package com.github.fernandospr.blocklist.controller
 
 import jakarta.validation.ConstraintViolationException
 import org.springframework.http.HttpStatus

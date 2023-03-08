@@ -1,4 +1,4 @@
-package com.github.fernandospr.blocklist
+package com.github.fernandospr.blocklist.ipextractor
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue

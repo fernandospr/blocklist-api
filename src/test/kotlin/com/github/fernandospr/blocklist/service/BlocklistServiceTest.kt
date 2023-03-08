@@ -1,5 +1,7 @@
-package com.github.fernandospr.blocklist
+package com.github.fernandospr.blocklist.service
 
+import com.github.fernandospr.blocklist.client.IPSumClient
+import com.github.fernandospr.blocklist.ipextractor.IPv4Extractor
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito
@@ -39,4 +41,3 @@ class BlocklistServiceTest {
   }
 
 }
-
