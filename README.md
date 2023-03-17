@@ -65,7 +65,7 @@ java -jar -Dserver.port=8888 -Dlogging.level.org.springframework.web=DEBUG build
 ```
 
 ## Design choices
-* [Spring Boot](https://spring.io/projects/spring-boot) + [Kotlin](https://kotlinlang.org/) were chosen to build this service.
+* In order to create this service as soon as possible/time constraints, [Spring Boot](https://spring.io/projects/spring-boot) + [Kotlin](https://kotlinlang.org/) were chosen to build this service, as these are known by the developer.
 
 * Spring Boot is a library/framework that already has out of the box solutions for common problems:
   * Allows to write web controllers exposing API services. E.g. To expose the GET `/v1/ips/{IPv4 address}` route.
@@ -112,3 +112,25 @@ Schedules a task to refresh the blocklist using the `BlocklistService`. It also 
 
 ### BlocklistController
 Exposes the GET `/v1/ips/{IPv4 address}` route, returns `true`/`false` depending if it's or it's not in the blocklist obtained from the `BlocklistService`.
+
+## Possible Enhancements
+* Currently, only IPSum, hosted in Github, is the blocklist provider. If Github is down, the client will retry, 5 times by default. To change it, see the [Configurable Properties](#configurable-properties) section.
+  * `BlocklistService` could be modified to use a list of providers instead of just one (the `IPSumClient`), each of these providers could retrieve the data from other endpoints or even a local file.
+  * When the node starts, it could get the blocklist from the local file provider first, then try to get the most updated blocklist from an external provider.
+  * When the blocklist is retrieved from an external provider successfully, it should save it to local disk.
+
+* If the service should start checking for IPv6 addresses in the blocklist, the following changes would have to be made:
+  * Change/add another provider, currently IPSum just provides a blocklist of IPv4 addresses.
+  * `IPv4Extractor` should be changed or replaced to use a IPv6 regex.
+
+* If the blocklist is much greater than 4MB and the node cannot hold all of the IPs in memory, this service could be modified as follows:
+  * Download the blocklist from an external provider and save it to a file.
+  * Sort the IPs of the file and save it.
+  * Save another file describing pages, e.g. IPs less than A correspond to the first N IPs of the file, IPs less than B correspond to the next M IPs of the file, and so on.
+  * `BlocklistService` should be changed to get the corresponding page according to the IP that the client wants to check, e.g. if the IP is greater than A but less than B, page 1 of the blocklist should be load from disk to memory and check if the IP is in this page.
+  * Page could be cached in memory just in case the next request uses the same page.
+  * The result of the last R requests and their result (true/false if it's or it's not in the blocklist) could be cached: e.g. IP_X-true, IP_Y-false, etc.
+
+* Having N running nodes means there will be N requests to the external IPSum blocklist provider periodically.
+  * Currently it's just 4 MB per node, however if it gets bigger, downloading the bigger file multiplied by N might be redundant/unnecesary.
+  * It'd be better if only one node downloads the blocklist periodically, cache it and share with the other nodes through the local network.
