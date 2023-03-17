@@ -77,17 +77,15 @@ class BlocklistServiceCacheIntegrationTest {
   }
 
   @Test
-  fun `Getting IP blocklist and updating cache should update cache`() {
+  fun `Getting IP blocklist after updating cache should not throw exception`() {
     cacheUpdaterBlocklistService.getIpBlocklistAndUpdateCache()
 
-    Assertions.assertEquals(blocklist, cache.getValue(CACHE_NAME))
+    Assertions.assertDoesNotThrow { cachedBlocklistService.getCachedIpBlocklist() }
   }
 
   @Test
-  fun `Getting IP blocklist after updating cache should return the cached blocklist`() {
+  fun `Getting IP blocklist and updating cache should update cache`() {
     cacheUpdaterBlocklistService.getIpBlocklistAndUpdateCache()
-
-    cachedBlocklistService.getCachedIpBlocklist()
 
     Assertions.assertEquals(blocklist, cache.getValue(CACHE_NAME))
   }
