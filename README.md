@@ -167,3 +167,14 @@ Exposes the GET `/v1/ips/{IPv4 address}` route, returns `true`/`false` depending
   * `BlocklistService` should be changed to get the corresponding page according to the IP that the client wants to check, e.g. if the IP is greater than A but less than B, page 1 of the blocklist should be load from disk to memory and check if the IP is in this page.
   * Page could be cached in memory just in case the next request uses the same page.
   * The result of the last R requests and their result (true/false if it's or it's not in the blocklist) could be cached: e.g. IP_X-true, IP_Y-false, etc.
+
+### Test Criteria
+
+* Only the minimal tests were written. This means the code doesn't have 100% coverage.
+  * Having a 100% coverage would require mantaining tests and some of them could be fragile if any of the possible enhancemente mentioned above is implemented.
+  * Some of the methods really don't have much logic and use features of Spring, which are already tested.
+  * The main focus is to test critical parts of the service such as:
+    * IPv4 parsing.
+    * Collaboration between the `BlocklistController` and `BlocklistService` to know if the IP is contained or not in the blocklist.
+    * Ensuring the `BlocklistRefresher` collaborates with the `BlocklistService` whenever it needs to refresh the blocklist.
+    * Putting the blocklist in cache and retrieving it later and verifying the expected behavior when there's no cache.
